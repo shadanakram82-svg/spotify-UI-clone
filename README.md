@@ -7,7 +7,7 @@ This project replicates the layout, grid system, hover interactions, and respons
 
 ## 🔗 Live Demo
 
-👉 https://cosmic-torrone-c2a754.netlify.app/
+👉 https://spotify-ui-01.netlify.app/
 
 ---
 
