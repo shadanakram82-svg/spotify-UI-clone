@@ -379,3 +379,219 @@ filterTopSearchItems();
 setSort(currentSort);
 setView(currentView);
 filterItems();
+
+// ── Right-bar content filter (All / Music / Podcast) ──────────────────────
+const rightFilterBtns = Array.from(document.querySelectorAll('.right-up-box .right-text'));
+const rightSections = Array.from(document.querySelectorAll('.right-bar [data-section]'));
+
+const applyRightFilter = (filter) => {
+  // update button active state
+  rightFilterBtns.forEach((btn) => {
+    btn.classList.toggle('right-text-active', btn.dataset.filter === filter);
+  });
+
+  // show / hide sections
+  rightSections.forEach((section) => {
+    if (filter === 'all') {
+      section.classList.remove('section-hidden');
+    } else {
+      // show section if its data-section matches the chosen filter
+      const matches = section.dataset.section === filter;
+      section.classList.toggle('section-hidden', !matches);
+    }
+  });
+};
+
+rightFilterBtns.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    applyRightFilter(btn.dataset.filter);
+  });
+});
+
+// initialise with the button that already has the active class
+const initialActive = rightFilterBtns.find((b) => b.classList.contains('right-text-active'));
+if (initialActive) applyRightFilter(initialActive.dataset.filter);
+
+// ── Navigation between Main Content and Liked Songs ─────────────────
+const navHomeBtn = document.querySelector('.nav-home-link');
+const navLogoBtn = document.querySelector('.nav-logo');
+const likedNavTriggers = document.querySelectorAll('[data-navigate="liked-songs"]');
+const rightBarHome = document.querySelector('.right-bar');
+const rightPlayListView = document.getElementById('liked-playlist-view');
+
+const navigateHome = (e) => {
+  if (e) e.preventDefault();
+  if (rightBarHome && rightPlayListView) {
+    rightBarHome.classList.remove('section-hidden');
+    rightPlayListView.classList.add('section-hidden');
+  }
+};
+
+const navigateLikedSongs = (e) => {
+  if (e) e.preventDefault();
+  if (rightBarHome && rightPlayListView) {
+    rightBarHome.classList.add('section-hidden');
+    rightPlayListView.classList.remove('section-hidden');
+  }
+};
+
+if (navHomeBtn) {
+  navHomeBtn.addEventListener('click', navigateHome);
+}
+if (navLogoBtn) {
+  navLogoBtn.addEventListener('click', navigateHome);
+}
+
+likedNavTriggers.forEach(trigger => {
+  trigger.addEventListener('click', navigateLikedSongs);
+});
+
+// ── Audio Playback Logic ─────────────────
+const mainAudio = document.getElementById('main-audio-player');
+const masterPlayBtn = document.getElementById('master-play-btn');
+const playableTracks = document.querySelectorAll('.playable-track');
+const bigPlaylistPlayBtns = document.querySelectorAll('.playlist-play-main'); // The big green button
+
+if (mainAudio && masterPlayBtn) {
+  let isPlaying = false;
+
+  const updateAudioUI = () => {
+    const isPaused = mainAudio.paused;
+
+    // 1. Update Master Play button at the bottom
+    const masterIcon = masterPlayBtn.querySelector('i');
+    if (masterIcon) {
+      masterIcon.className = isPaused ? "fa-solid fa-play" : "fa-solid fa-pause";
+    }
+
+    // 2. Update big green play buttons
+    bigPlaylistPlayBtns.forEach(btn => {
+      const icon = btn.querySelector('i');
+      if (icon) {
+        icon.className = isPaused ? "fa-solid fa-play" : "fa-solid fa-pause";
+      }
+    });
+
+    // 3. Update all individual track rows
+    playableTracks.forEach(t => {
+      const icon = t.querySelector('.track-play');
+      if (!icon) return;
+
+      if (t.getAttribute('data-audio-src') === mainAudio.src) {
+        // This is the active track
+        icon.className = isPaused ? "fa-solid fa-play track-play" : "fa-solid fa-pause track-play";
+        // Force the icon to show constantly if playing
+        icon.style.display = isPaused ? "" : "inline-block";
+        const trackNum = t.querySelector('.track-num');
+        if (trackNum) trackNum.style.display = isPaused ? "" : "none";
+      } else {
+        // Inactive tracks
+        icon.className = "fa-solid fa-play track-play";
+        icon.style.display = ""; // revert to CSS hover logic
+        const trackNum = t.querySelector('.track-num');
+        if (trackNum) trackNum.style.display = "";
+      }
+    });
+  };
+
+  mainAudio.addEventListener('play', updateAudioUI);
+  mainAudio.addEventListener('pause', updateAudioUI);
+  mainAudio.addEventListener('ended', () => {
+    // When song ends, put everything back to standard play state
+    updateAudioUI();
+  });
+
+  const togglePlay = () => {
+    if (mainAudio.src && mainAudio.src !== window.location.href) {
+      if (mainAudio.paused) {
+        mainAudio.play();
+      } else {
+        mainAudio.pause();
+      }
+    } else {
+      alert("No song selected! Click a track row to load a song.");
+    }
+  };
+
+  masterPlayBtn.addEventListener('click', togglePlay);
+
+  // Wire up the big green playlist play button to just play the first track if none playing, or toggle
+  bigPlaylistPlayBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!mainAudio.src || mainAudio.src === window.location.href) {
+        // If nothing is loaded, play the first track by simulating a click
+        if (playableTracks.length > 0) {
+          playableTracks[0].click();
+        }
+      } else {
+        togglePlay();
+      }
+    });
+  });
+
+  // When clicking a track row or its specific play button
+  playableTracks.forEach(track => {
+    track.addEventListener('click', () => {
+      const audioUrl = track.getAttribute('data-audio-src');
+      if (audioUrl) {
+        if (mainAudio.src !== audioUrl) {
+          // Changed song!
+          mainAudio.src = audioUrl;
+          mainAudio.play();
+        } else {
+          // Same song clicked, so just toggle play/pause
+          togglePlay();
+        }
+
+        // Visually highlight this row
+        document.querySelectorAll('.playlist-track-row').forEach(t => t.style.background = "transparent");
+        track.style.background = "rgba(255,255,255,0.1)";
+
+        // Sync track info to the bottom player
+        const titleElem = track.querySelector('.track-name');
+        const artistElem = track.querySelector('.track-artist');
+        const imgElem = track.querySelector('.track-title-col img');
+
+        if (titleElem) document.getElementById('player-song-title').textContent = titleElem.textContent;
+        if (artistElem) document.getElementById('player-song-artist').textContent = artistElem.textContent;
+        if (imgElem) document.getElementById('player-album-art').src = imgElem.src;
+      }
+    });
+  });
+
+  // ── Sync Progress Bar ─────────────────
+  const progressBar = document.getElementById('progress-bar');
+  const currentTimeElem = document.getElementById('current-time');
+  const totalTimeElem = document.getElementById('total-time');
+
+  const formatTime = (time) => {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  if (progressBar && currentTimeElem && totalTimeElem) {
+    mainAudio.addEventListener('timeupdate', () => {
+      if (mainAudio.duration) {
+        const progressPercent = (mainAudio.currentTime / mainAudio.duration) * 100;
+        progressBar.value = progressPercent;
+        currentTimeElem.textContent = formatTime(mainAudio.currentTime);
+        totalTimeElem.textContent = formatTime(mainAudio.duration);
+      }
+    });
+
+    progressBar.addEventListener('input', () => {
+      if (mainAudio.duration) {
+        const seekTime = (progressBar.value / 100) * mainAudio.duration;
+        mainAudio.currentTime = seekTime;
+      }
+    });
+
+    mainAudio.addEventListener('loadedmetadata', () => {
+      totalTimeElem.textContent = formatTime(mainAudio.duration);
+      progressBar.value = 0;
+    });
+  }
+}
