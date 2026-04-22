@@ -11,7 +11,7 @@ This project replicates the layout, grid system, hover interactions, and respons
 
 ---
 
-## 📌 Project Overview
+## 📌 Project 
 
 This project focuses purely on frontend development.  
 It recreates Spotify’s modern UI using:
