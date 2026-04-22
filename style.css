@@ -215,6 +215,13 @@ body {
   gap: 10px;
 }
 
+.nav-home-link,
+.nav-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .nav-right {
   gap: 20px;
   display: flex;
@@ -1601,20 +1608,113 @@ body {
     padding-bottom: 150px;
   }
 
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding: 0.75rem;
+    border-bottom: 1px solid #1f1f1f;
+  }
+
+  .nav-cont {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    grid-template-areas:
+      "logo spacer notification friends profile"
+      "home search search search search"
+      "explore explore explore explore explore";
+    align-items: center;
+    gap: 0.75rem 0.5rem;
+  }
+
+  .nav-left,
+  .nav-right {
+    display: contents;
+  }
+
+  .nav-logo {
+    grid-area: logo;
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
   .nav-center {
-    flex-direction: column;
-    align-items: stretch;
+    display: contents;
+  }
+
+  .nav-home-link {
+    grid-area: home;
+    justify-self: start;
+  }
+
+  .nav-home {
+    height: 2.7rem;
+    width: 2.7rem;
+  }
+
+  .input-form {
+    grid-area: search;
+    width: 100%;
+    max-width: none;
+    height: 3rem;
+  }
+
+  .form-item {
+    height: 100%;
+    padding: 0 0.8rem;
+    gap: 0.45rem;
+  }
+
+  .search-icon,
+  .browse-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .news-email {
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+  }
+
+  .form-item span {
+    margin-left: auto;
+    font-size: 1rem;
+  }
+
+  .nav-notification-link {
+    grid-area: notification;
+  }
+
+  .nav-friends-link {
+    grid-area: friends;
+  }
+
+  .nav-profile-link {
+    grid-area: profile;
   }
 
   .nav-right {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    justify-content: initial;
+    width: auto;
+  }
+
+  .nav-xtra-item {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .nav-profile {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .nav-explore {
+    grid-area: explore;
     width: 100%;
     margin: 0;
+    padding: 0.75rem 1rem;
     text-align: center;
+    font-size: 0.86rem;
   }
 
   .song-item,
@@ -1631,5 +1731,37 @@ body {
 
   .player-progress {
     gap: 0.35rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar {
+    padding: 0.65rem;
+  }
+
+  .nav-cont {
+    gap: 0.65rem 0.4rem;
+  }
+
+  .input-form {
+    height: 2.8rem;
+  }
+
+  .form-item {
+    padding: 0 0.65rem;
+  }
+
+  .news-email {
+    font-size: 0.9rem;
+  }
+
+  .nav-explore {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.82rem;
+  }
+
+  .nav-profile {
+    width: 2.3rem;
+    height: 2.3rem;
   }
 }
