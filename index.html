@@ -24,15 +24,58 @@
           <a href="#" class="nav-home-link" aria-label="Home"><img src="assets/new home.png" class="nav-home"></a>
           <!-- <a href="#"><img src="assets/images (1) (1) (1).png" class="nav-search"></a> -->
 
-          <form class="input-form" role="search">
+          <form class="input-form top-search-form" role="search">
             <div class="form-item">
               <img src="assets/search-bar.png" class="search-icon">
 
-              <input class="news-email" placeholder="What do you want to play?" aria-label="Search music" />
+              <input class="news-email top-search-input" placeholder="What do you want to play?"
+                aria-label="Search music" autocomplete="off" />
               <!-- <button class="news-send-button">send</button> -->
 
               <span>|</span>
               <img src="assets/browse-icon.png" class="browse-icon">
+            </div>
+            <div class="top-search-panel" aria-hidden="true">
+              <p class="top-search-heading">Recent searches</p>
+              <div class="top-search-results">
+                <button type="button" class="top-search-item" data-value="Jee Nai Lagda">
+                  <img src="assets/card1img.jpeg" alt="Jee Nai Lagda">
+                  <span class="top-search-copy">
+                    <strong>Jee Nai Lagda</strong>
+                    <small>Song &bull; Jasmine Sandlas, Jaani, Bunny</small>
+                  </span>
+                </button>
+                <button type="button" class="top-search-item" data-value="Jee Ni Lagda">
+                  <img src="assets/Akhiyaan-Gulaab-From-Teri-Baaton-Mein-Aisa-Uljha-Jiya-Hindi-2024-20240119131017-500x500.jpg"
+                    alt="Jee Ni Lagda">
+                  <span class="top-search-copy">
+                    <strong>Jee Ni Lagda</strong>
+                    <small>Song &bull; Karan Aujla, Ikky</small>
+                  </span>
+                </button>
+                <button type="button" class="top-search-item" data-value="Tere Vaaste Punjabi Version">
+                  <img src="assets/card2img.jpeg" alt="Tere Vaaste Punjabi Version">
+                  <span class="top-search-copy">
+                    <strong>Tere Vaaste Punjabi Version - Noor Chahal</strong>
+                    <small>Song &bull; Noor Chahal</small>
+                  </span>
+                </button>
+                <button type="button" class="top-search-item" data-value="Tere Vaaste">
+                  <img src="assets/card3img.jpeg" alt="Tere Vaaste">
+                  <span class="top-search-copy">
+                    <strong>Tere Vaaste (From "Zara Hatke Zara Bachke")</strong>
+                    <small>Song &bull; Varun Jain, Sachin-Jigar, Shadab Faridi</small>
+                  </span>
+                </button>
+                <button type="button" class="top-search-item" data-value="Ishq Murshid">
+                  <img src="assets/en.jpg" alt="Ishq Murshid">
+                  <span class="top-search-copy">
+                    <strong>Ishq Murshid (ALL SONGS)</strong>
+                    <small>Playlist &bull; Annewsha Das</small>
+                  </span>
+                </button>
+              </div>
+              <p class="top-search-empty" hidden>No recent searches found.</p>
             </div>
           </form>
         </div>
@@ -66,48 +109,152 @@
 
   <div class="main-content">
     <div class="left-bar">
-      <div class="left-stick-item">
-
-        <div class="left-library">
-          <h3>Your Library</h3>
-          <div class="left-bar-right">
-            <img src="assets/create-2-logo.png" class="left-plus-icon">
-            <img src="assets/extent-logo.png" class="left-zoom-icon">
+      <div class="left-library">
+        <h3>Your Library</h3>
+        <div class="left-bar-right">
+          <button type="button" class="left-icon-btn left-add-btn" aria-label="Create playlist" aria-expanded="false"
+            aria-controls="library-create-menu">
+            <i class="fa-solid fa-plus left-add-icon"></i>
+          </button>
+          <div class="library-create-menu" id="library-create-menu" aria-hidden="true">
+            <button type="button" class="library-create-option">
+              <span class="library-create-icon playlist-menu-icon" aria-hidden="true">
+                <i class="fa-solid fa-plus playlist-plus-glyph"></i>
+                <i class="fa-solid fa-music playlist-note-glyph"></i>
+              </span>
+              <span class="library-create-copy">
+                <strong>Playlist</strong>
+                <small>Create a playlist with songs or episodes</small>
+              </span>
+            </button>
+            <button type="button" class="library-create-option">
+              <span class="library-create-icon blend-menu-icon" aria-hidden="true">
+                <span class="blend-circle blend-circle-left"></span>
+                <span class="blend-circle blend-circle-right"></span>
+              </span>
+              <span class="library-create-copy">
+                <strong>Blend</strong>
+                <small>Combine your friends' tastes into a playlist</small>
+              </span>
+            </button>
+            <button type="button" class="library-create-option">
+              <span class="library-create-icon folder-menu-icon" aria-hidden="true">
+                <i class="fa-regular fa-folder"></i>
+              </span>
+              <span class="library-create-copy">
+                <strong>Folder</strong>
+                <small>Organize your playlists</small>
+              </span>
+            </button>
           </div>
+          <button type="button" class="left-expand-btn" aria-label="Expand library">
+            <i class="fa-solid fa-expand"></i>
+          </button>
         </div>
+      </div>
 
-        <div class="left-playlist">
-          <a href="#" class="left-text">Playlists</a>
-          <a href="#" class="left-text">Artists</a>
-          <a href="#" class="left-text">Albums</a>
-          <!-- <a href="#" class="left-text">Podcast</a> -->
-
-        </div>
-
+      <div class="left-playlist">
+        <a href="#" class="left-text left-text-active">Playlists</a>
+        <a href="#" class="left-text">Artists</a>
       </div>
 
       <div class="left-recents">
-        <img src="assets/search-bar.png" class="left-search">
-        <img src="assets/recents-logo.png" class="left-menu">
+        <button type="button" class="left-search-btn" aria-label="Search library" aria-expanded="false"
+          aria-controls="library-search-input">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <label class="left-library-search" for="library-search-input">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" id="library-search-input" class="left-library-search-input"
+            placeholder="Search in Your Library">
+        </label>
+        <div class="left-sort-wrap">
+          <button type="button" class="left-sort-btn" aria-label="Sort by Recently Added" aria-expanded="false"
+            aria-controls="library-sort-menu">
+            <span class="left-sort-label">Recently Added</span>
+            <i class="fa-solid fa-list"></i>
+          </button>
+          <div class="library-sort-menu" id="library-sort-menu" aria-hidden="true">
+            <div class="library-sort-section">
+              <p class="library-sort-heading">Sort by</p>
+              <button type="button" class="library-sort-option" data-sort="recents">
+                <span>Recents</span>
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button type="button" class="library-sort-option is-selected" data-sort="recently-added">
+                <span>Recently Added</span>
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button type="button" class="library-sort-option" data-sort="alphabetical">
+                <span>Alphabetical</span>
+                <i class="fa-solid fa-check"></i>
+              </button>
+              <button type="button" class="library-sort-option" data-sort="creator">
+                <span>Creator</span>
+                <i class="fa-solid fa-check"></i>
+              </button>
+            </div>
+            <div class="library-sort-divider"></div>
+            <div class="library-sort-section">
+              <p class="library-sort-heading">View as</p>
+              <div class="library-view-options">
+                <button type="button" class="library-view-option" data-view="compact" aria-label="Compact view">
+                  <i class="fa-solid fa-list"></i>
+                </button>
+                <button type="button" class="library-view-option is-selected" data-view="list" aria-label="List view">
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+                <button type="button" class="library-view-option" data-view="grid" aria-label="Grid view">
+                  <i class="fa-solid fa-grip"></i>
+                </button>
+                <button type="button" class="library-view-option" data-view="cards" aria-label="Card view">
+                  <i class="fa-solid fa-table-cells"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="liked-wala-left">
-
-        <div class="left-liked">
-          <img src="assets/ab67706c0000da84587ecba4a27774b2f6f07174.jpg">
-
-        </div>
-
-        <div class="inside-love">
-          <div class="inside-liked">
-            <p>Liked Songs</p>
+      <div class="left-library-list" data-view="list">
+        <a href="#" class="library-item library-item-featured" data-title="Liked Songs" data-meta="Playlist 474 songs"
+          data-creator="Spotify" data-added="3" data-recent="1">
+          <div class="library-cover liked-cover">
+            <i class="fa-solid fa-heart"></i>
           </div>
-
-          <div class="inside-liked-bottom">
-            <img src="assets/playlist-logo.png">
-            <span>Playlist . 308 songs</span>
+          <div class="library-meta-block">
+            <h4>Liked Songs</h4>
+            <div class="library-subtext library-subtext-pinned">
+              <i class="fa-solid fa-thumbtack"></i>
+              <span>Playlist &bull; 474 songs</span>
+            </div>
           </div>
-        </div>
+        </a>
+
+        <a href="#" class="library-item" data-title="Naat & Nasseed" data-meta="Playlist Shadan akram"
+          data-creator="Shadan akram" data-added="2" data-recent="2">
+          <div class="library-cover collage-cover" aria-hidden="true">
+            <img src="assets/card4img.jpeg" alt="">
+            <img src="assets/card5img.jpeg" alt="">
+            <img src="assets/card6img.jpeg" alt="">
+            <img src="assets/card2img.jpeg" alt="">
+          </div>
+          <div class="library-meta-block">
+            <h4>Naat & Nasseed</h4>
+            <p>Playlist &bull; Shadan akram</p>
+          </div>
+        </a>
+
+        <a href="#" class="library-item" data-title="Your Episodes" data-meta="Podcast Spotify" data-creator="Spotify"
+          data-added="1" data-recent="3">
+          <div class="library-cover episodes-cover">
+            <i class="fa-solid fa-bookmark"></i>
+          </div>
+          <div class="library-meta-block">
+            <h4>Your Episodes</h4>
+            <p>Podcast &bull; Spotify</p>
+          </div>
+        </a>
       </div>
 
     </div>
@@ -301,7 +448,7 @@
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
 
-
+   <script src="script.js"></script>
 </body>
 
 </html>
