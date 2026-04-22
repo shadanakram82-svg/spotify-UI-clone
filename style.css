@@ -1468,7 +1468,7 @@ body {
   appearance: none;
   height: 4px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #ffffff 70%, #444 70%);
+  background: linear-gradient(90deg, #ffffff 0%, #444 0%);
   outline: none;
   cursor: pointer;
 }

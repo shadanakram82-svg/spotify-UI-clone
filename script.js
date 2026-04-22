@@ -553,9 +553,29 @@ if (mainAudio && masterPlayBtn) {
         const artistElem = track.querySelector('.track-artist');
         const imgElem = track.querySelector('.track-title-col img');
 
-        if (titleElem) document.getElementById('player-song-title').textContent = titleElem.textContent;
-        if (artistElem) document.getElementById('player-song-artist').textContent = artistElem.textContent;
-        if (imgElem) document.getElementById('player-album-art').src = imgElem.src;
+        const songData = {
+          src: audioUrl,
+          title: titleElem ? titleElem.textContent : "Unknown",
+          artist: artistElem ? artistElem.textContent : "Unknown",
+          imgSrc: imgElem ? imgElem.src : ""
+        };
+
+        if (titleElem) document.getElementById('player-song-title').textContent = songData.title;
+        if (artistElem) document.getElementById('player-song-artist').textContent = songData.artist;
+
+        const mainImgElem = document.getElementById('player-album-art');
+        const mainVerifiedElem = document.getElementById('player-verified');
+
+        if (imgElem && mainImgElem) {
+          mainImgElem.src = songData.imgSrc;
+          mainImgElem.style.opacity = '1';
+        }
+        if (mainVerifiedElem) {
+          mainVerifiedElem.style.opacity = '1';
+        }
+
+        // Save to cache so it survives refreshes
+        localStorage.setItem('spotifyLastSong', JSON.stringify(songData));
       }
     });
   });
@@ -573,10 +593,15 @@ if (mainAudio && masterPlayBtn) {
   };
 
   if (progressBar && currentTimeElem && totalTimeElem) {
+    const updateProgressGradient = (percent) => {
+      progressBar.style.background = `linear-gradient(90deg, #ffffff ${percent}%, #444 ${percent}%)`;
+    };
+
     mainAudio.addEventListener('timeupdate', () => {
       if (mainAudio.duration) {
         const progressPercent = (mainAudio.currentTime / mainAudio.duration) * 100;
         progressBar.value = progressPercent;
+        updateProgressGradient(progressPercent);
         currentTimeElem.textContent = formatTime(mainAudio.currentTime);
         totalTimeElem.textContent = formatTime(mainAudio.duration);
       }
@@ -586,12 +611,39 @@ if (mainAudio && masterPlayBtn) {
       if (mainAudio.duration) {
         const seekTime = (progressBar.value / 100) * mainAudio.duration;
         mainAudio.currentTime = seekTime;
+        updateProgressGradient(progressBar.value);
       }
     });
 
     mainAudio.addEventListener('loadedmetadata', () => {
       totalTimeElem.textContent = formatTime(mainAudio.duration);
       progressBar.value = 0;
+      updateProgressGradient(0);
     });
+  }
+
+  // ── Load Last Played Song from LocalStorage ──
+  try {
+    const lastSongStr = localStorage.getItem('spotifyLastSong');
+    if (lastSongStr) {
+      const lastSong = JSON.parse(lastSongStr);
+      if (lastSong.src) {
+        mainAudio.src = lastSong.src; // Loads the file but does NOT play it
+        document.getElementById('player-song-title').textContent = lastSong.title;
+        document.getElementById('player-song-artist').textContent = lastSong.artist;
+        const imgElem = document.getElementById('player-album-art');
+        const verifiedElem = document.getElementById('player-verified');
+
+        if (lastSong.imgSrc) {
+          imgElem.src = lastSong.imgSrc;
+          imgElem.style.opacity = '1';
+        }
+        if (verifiedElem) {
+          verifiedElem.style.opacity = '1';
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Could not load last song data", e);
   }
 }
