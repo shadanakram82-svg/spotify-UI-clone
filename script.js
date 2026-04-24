@@ -663,3 +663,118 @@ if (mainAudio && masterPlayBtn) {
     console.error("Could not load last song data", e);
   }
 }
+
+// ── Address Edit (Checkout Page) ─────────────────────────────────────
+(function () {
+  const addressBox = document.getElementById('addressBox');
+  const addressDisplay = document.getElementById('addressDisplay');
+  const addressEditForm = document.getElementById('addressEditForm');
+  const addressEditBtn = document.getElementById('addressEditBtn');
+  const addressSaveBtn = document.getElementById('addressSaveBtn');
+  const addressCancelBtn = document.getElementById('addressCancelBtn');
+  const stateSelect = document.getElementById('stateSelect');
+  const citySelect = document.getElementById('citySelect');
+  const addressCityEl = document.getElementById('addressCity');
+  const addressStateEl = document.getElementById('addressState');
+
+  if (!addressBox || !addressDisplay || !addressEditForm) return;
+
+  // City data for each state
+  const cityData = {
+    'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Nellore', 'Kurnool', 'Rajahmundry', 'Tirupati', 'Kakinada', 'Kadapa', 'Anantapur', 'Eluru', 'Ongole', 'Vizianagaram'],
+    'Arunachal Pradesh': ['Itanagar', 'Naharlagun', 'Pasighat', 'Tawang', 'Ziro', 'Bomdila', 'Along', 'Tezu'],
+    'Assam': ['Guwahati', 'Silchar', 'Dibrugarh', 'Jorhat', 'Nagaon', 'Tinsukia', 'Tezpur', 'Bongaigaon', 'Karimganj', 'Sivasagar'],
+    'Bihar': ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur', 'Purnia', 'Darbhanga', 'Bihar Sharif', 'Arrah', 'Begusarai', 'Katihar', 'Munger', 'Chapra', 'Sasaram'],
+    'Chhattisgarh': ['Raipur', 'Bhilai', 'Bilaspur', 'Korba', 'Durg', 'Rajnandgaon', 'Raigarh', 'Jagdalpur', 'Ambikapur'],
+    'Delhi': ['New Delhi', 'Dwarka', 'Rohini', 'Saket', 'Lajpat Nagar', 'Karol Bagh', 'Connaught Place', 'Janakpuri', 'Pitampura', 'Vasant Kunj', 'Shahdara', 'Narela'],
+    'Goa': ['Panaji', 'Margao', 'Vasco da Gama', 'Mapusa', 'Ponda', 'Bicholim', 'Quepem'],
+    'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Bhavnagar', 'Jamnagar', 'Junagadh', 'Gandhinagar', 'Anand', 'Morbi', 'Nadiad', 'Mehsana', 'Bharuch', 'Porbandar'],
+    'Haryana': ['Gurugram', 'Faridabad', 'Panipat', 'Ambala', 'Karnal', 'Hisar', 'Rohtak', 'Sonipat', 'Panchkula', 'Bhiwani', 'Sirsa', 'Bahadurgarh', 'Yamunanagar', 'Kurukshetra', 'Rewari', 'Palwal'],
+    'Himachal Pradesh': ['Shimla', 'Manali', 'Dharamshala', 'Solan', 'Mandi', 'Kullu', 'Bilaspur', 'Chamba', 'Hamirpur', 'Palampur'],
+    'Jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro', 'Hazaribagh', 'Deoghar', 'Giridih', 'Ramgarh', 'Dumka'],
+    'Karnataka': ['Bengaluru', 'Mysuru', 'Mangaluru', 'Hubballi', 'Belagavi', 'Kalaburagi', 'Davangere', 'Ballari', 'Vijayapura', 'Shivamogga', 'Tumakuru', 'Udupi', 'Hassan'],
+    'Kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur', 'Kollam', 'Palakkad', 'Alappuzha', 'Kannur', 'Kottayam', 'Malappuram', 'Kasaragod'],
+    'Madhya Pradesh': ['Bhopal', 'Indore', 'Gwalior', 'Jabalpur', 'Ujjain', 'Sagar', 'Dewas', 'Satna', 'Ratlam', 'Rewa', 'Singrauli', 'Burhanpur', 'Khandwa'],
+    'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Thane', 'Nashik', 'Aurangabad', 'Solapur', 'Kolhapur', 'Amravati', 'Navi Mumbai', 'Sangli', 'Latur', 'Akola', 'Jalgaon', 'Ahmednagar'],
+    'Manipur': ['Imphal', 'Thoubal', 'Bishnupur', 'Churachandpur', 'Ukhrul', 'Kakching'],
+    'Meghalaya': ['Shillong', 'Tura', 'Jowai', 'Nongstoin', 'Williamnagar', 'Baghmara'],
+    'Mizoram': ['Aizawl', 'Lunglei', 'Champhai', 'Serchhip', 'Kolasib', 'Lawngtlai'],
+    'Nagaland': ['Kohima', 'Dimapur', 'Mokokchung', 'Tuensang', 'Wokha', 'Zunheboto'],
+    'Odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela', 'Berhampur', 'Sambalpur', 'Puri', 'Balasore', 'Baripada', 'Bhadrak', 'Jharsuguda'],
+    'Punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda', 'Mohali', 'Pathankot', 'Hoshiarpur', 'Moga', 'Barnala', 'Phagwara', 'Muktsar', 'Kapurthala', 'Firozpur'],
+    'Rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Bikaner', 'Ajmer', 'Bhilwara', 'Alwar', 'Sikar', 'Pali', 'Sri Ganganagar', 'Bharatpur', 'Tonk', 'Kishangarh', 'Beawar'],
+    'Sikkim': ['Gangtok', 'Namchi', 'Gyalshing', 'Mangan', 'Rangpo', 'Singtam'],
+    'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli', 'Erode', 'Vellore', 'Thoothukudi', 'Thanjavur', 'Dindigul', 'Tiruppur', 'Kanchipuram', 'Nagercoil'],
+    'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Karimnagar', 'Khammam', 'Ramagundam', 'Mahbubnagar', 'Nalgonda', 'Adilabad', 'Siddipet', 'Suryapet'],
+    'Tripura': ['Agartala', 'Udaipur', 'Dharmanagar', 'Kailashahar', 'Belonia', 'Ambassa'],
+    'Uttar Pradesh': ['Lucknow', 'Noida', 'Kanpur', 'Ghaziabad', 'Agra', 'Varanasi', 'Meerut', 'Prayagraj', 'Bareilly', 'Aligarh', 'Moradabad', 'Gorakhpur', 'Saharanpur', 'Jhansi', 'Firozabad', 'Mathura', 'Ayodhya', 'Muzaffarnagar'],
+    'Uttarakhand': ['Dehradun', 'Haridwar', 'Rishikesh', 'Roorkee', 'Haldwani', 'Rudrapur', 'Kashipur', 'Nainital', 'Mussoorie', 'Pithoragarh'],
+    'West Bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Asansol', 'Siliguri', 'Bardhaman', 'Malda', 'Baharampur', 'Habra', 'Kharagpur', 'Shantiniketan', 'Haldia', 'Raiganj']
+  };
+
+  // Populate city dropdown based on selected state
+  const populateCities = (state) => {
+    citySelect.innerHTML = '<option value="">— Select City —</option>';
+    const cities = cityData[state];
+    if (cities) {
+      cities.forEach(city => {
+        const opt = document.createElement('option');
+        opt.value = city;
+        opt.textContent = city;
+        citySelect.appendChild(opt);
+      });
+    }
+  };
+
+  // When state changes, refresh city list
+  stateSelect.addEventListener('change', () => {
+    populateCities(stateSelect.value);
+  });
+
+  // Open edit form
+  addressEditBtn.addEventListener('click', () => {
+    addressDisplay.style.display = 'none';
+    addressEditForm.style.display = 'block';
+    addressBox.classList.add('editing');
+
+    // Pre-select current state & populate cities
+    const currentState = addressStateEl.textContent.trim();
+    stateSelect.value = currentState;
+    populateCities(currentState);
+
+    // Pre-select current city
+    const currentCity = addressCityEl.textContent.trim();
+    if (citySelect.querySelector(`option[value="${currentCity}"]`)) {
+      citySelect.value = currentCity;
+    }
+  });
+
+  // Save
+  addressSaveBtn.addEventListener('click', () => {
+    const newState = stateSelect.value;
+    const newCity = citySelect.value;
+
+    if (!newState) {
+      stateSelect.focus();
+      return;
+    }
+    if (!newCity) {
+      citySelect.focus();
+      return;
+    }
+
+    addressStateEl.textContent = newState;
+    addressCityEl.textContent = newCity;
+
+    addressEditForm.style.display = 'none';
+    addressDisplay.style.display = 'flex';
+    addressBox.classList.remove('editing');
+  });
+
+  // Cancel
+  addressCancelBtn.addEventListener('click', () => {
+    addressEditForm.style.display = 'none';
+    addressDisplay.style.display = 'flex';
+    addressBox.classList.remove('editing');
+  });
+})();
