@@ -153,7 +153,7 @@ body {
   width: 470px;
   background-color: #2a2a2a;
   margin-bottom: 0.6rem;
-  margin-top: 1rem;
+  margin-top: 1.15rem;
   border-radius: 50px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   overflow: visible;
@@ -2872,6 +2872,7 @@ body {
   padding-right: 2rem;
 }
 
+
 .playlist-track-row {
   display: grid;
   grid-template-columns: 3rem minmax(120px, 4fr) 3fr minmax(120px, 1fr);
@@ -2942,3 +2943,158 @@ body {
 .playlist-track-row:hover .col-album {
   color: white;
 }
+
+/* === Premium View Styles === */
+.premium-view {
+  flex: 1;
+  background-color: #000;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  color: white;
+}
+
+.premium-top {
+  padding: 2.2rem 2rem 2.8rem;
+  background: linear-gradient(135deg, #a41b65 0%, #1e3264 100%);
+  text-align: center;
+}
+
+.premium-top h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.premium-top p {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.premium-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.premium-btns button {
+  padding: 1rem 2.8rem;
+  border-radius: 3rem;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-renew {
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+.btn-renew:hover {
+  background-color: #f6f6f6;
+  transform: scale(1.04);
+}
+
+.btn-all-plans {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #7c7c7c;
+}
+
+.btn-all-plans:hover {
+  border-color: white;
+  transform: scale(1.04);
+}
+
+.premium-terms {
+  color: #ccc;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.premium-bottom {
+  padding: 5rem 2rem;
+  text-align: center;
+  background-color: #121212;
+}
+
+.premium-bottom h2 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -1px;
+}
+
+.premium-bottom p {
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+  font-size: 1.25rem;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.payment-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 4.5rem 0 2rem;
+}
+
+.payment-icon {
+  width: 85px;
+  height: 55px;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121212;
+  font-size: 1.2rem;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.payment-icon.bhim {
+  font-size: 0.8rem;
+  color: #1d4b8c;
+}
+
+.payment-icon.phonepe {
+  color: #5f259f;
+  font-size: 2rem;
+}
+
+.payment-icon.googlepay {
+  color: #4285F4;
+  font-size: 2.2rem;
+}
+
+.payment-icon.paytm {
+  color: #00b9f1;
+  font-size: 1rem;
+}
+
+.more-payments {
+  color: white;
+  text-decoration: underline;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+

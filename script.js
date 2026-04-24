@@ -413,26 +413,39 @@ rightFilterBtns.forEach((btn) => {
 const initialActive = rightFilterBtns.find((b) => b.classList.contains('right-text-active'));
 if (initialActive) applyRightFilter(initialActive.dataset.filter);
 
-// ── Navigation between Main Content and Liked Songs ─────────────────
+// ── Navigation between Main Content, Liked Songs and Premium ──────
 const navHomeBtn = document.querySelector('.nav-home-link');
 const navLogoBtn = document.querySelector('.nav-logo');
+const navExploreBtn = document.querySelector('.nav-explore');
 const likedNavTriggers = document.querySelectorAll('[data-navigate="liked-songs"]');
 const rightBarHome = document.querySelector('.right-bar');
 const rightPlayListView = document.getElementById('liked-playlist-view');
+const premiumView = document.getElementById('premium-view');
 
 const navigateHome = (e) => {
   if (e) e.preventDefault();
-  if (rightBarHome && rightPlayListView) {
+  if (rightBarHome && rightPlayListView && premiumView) {
     rightBarHome.classList.remove('section-hidden');
     rightPlayListView.classList.add('section-hidden');
+    premiumView.classList.add('section-hidden');
   }
 };
 
 const navigateLikedSongs = (e) => {
   if (e) e.preventDefault();
-  if (rightBarHome && rightPlayListView) {
+  if (rightBarHome && rightPlayListView && premiumView) {
     rightBarHome.classList.add('section-hidden');
     rightPlayListView.classList.remove('section-hidden');
+    premiumView.classList.add('section-hidden');
+  }
+};
+
+const navigatePremium = (e) => {
+  if (e) e.preventDefault();
+  if (rightBarHome && rightPlayListView && premiumView) {
+    rightBarHome.classList.add('section-hidden');
+    rightPlayListView.classList.add('section-hidden');
+    premiumView.classList.remove('section-hidden');
   }
 };
 
@@ -441,6 +454,9 @@ if (navHomeBtn) {
 }
 if (navLogoBtn) {
   navLogoBtn.addEventListener('click', navigateHome);
+}
+if (navExploreBtn) {
+  navExploreBtn.addEventListener('click', navigatePremium);
 }
 
 likedNavTriggers.forEach(trigger => {
