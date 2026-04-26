@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -64,7 +64,7 @@
           </div>
         </div>
         <div class="checkout-plan-right">
-          <span class="checkout-plan-price" id="checkoutPlanPrice">₹199.00</span>
+          <span class="checkout-plan-price" id="checkoutPlanPrice">&#8377;199.00</span>
           <span class="checkout-plan-period">/month</span>
         </div>
       </div>
@@ -92,7 +92,7 @@
             <div class="address-form-group">
               <label for="stateSelect" class="address-form-label">State / Union Territory</label>
               <select id="stateSelect" class="address-form-select">
-                <option value="">— Select State —</option>
+                <option value="">Ã¢â‚¬â€ Select State Ã¢â‚¬â€</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                 <option value="Assam">Assam</option>
@@ -127,7 +127,7 @@
             <div class="address-form-group">
               <label for="citySelect" class="address-form-label">City</label>
               <select id="citySelect" class="address-form-select">
-                <option value="">— Select City —</option>
+                <option value="">Ã¢â‚¬â€ Select City Ã¢â‚¬â€</option>
               </select>
             </div>
             <div class="address-form-actions">
@@ -148,12 +148,12 @@
           <div class="checkout-payment-logos">
             <div class="cpay-icon bhim-upi-c">
               <span class="bhim-it">BHIM</span>
-              <span style="font-size:5px;"><span style="color:#ff7b00">▶</span><span
-                  style="color:#00a859">▶</span></span>
+              <span style="font-size:5px;"><span style="color:#ff7b00">Ã¢â€“Â¶</span><span
+                  style="color:#00a859">Ã¢â€“Â¶</span></span>
               <span class="bhim-it">UPI</span>
             </div>
             <div class="cpay-icon phonepe-c">
-              <div class="pe-c">पे</div>
+              <div class="pe-c">Ã Â¤ÂªÃ Â¥â€¡</div>
             </div>
             <div class="cpay-icon gpay-c">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -205,13 +205,18 @@
               <span class="summary-plan-name" id="summaryPlanNameBottom">Premium Standard</span>
             </div>
             <div class="summary-item-right">
-              <span class="summary-plan-price" id="summaryPlanPriceBottom">₹199.00/month</span>
+              <span class="summary-plan-price" id="summaryPlanPriceBottom">&#8377;199.00/month</span>
             </div>
           </div>
           <hr class="summary-divider">
-          <div class="summary-total-row">
+          <div class="summary-total-row" id="summaryTotalRow">
             <span class="summary-total-label">Total now</span>
-            <span class="summary-total-price" id="summaryTotalPriceBottom">₹199.00</span>
+            <span class="summary-loading-dots" id="summaryLoadingDots" aria-hidden="true">
+              <span class="s-dot"></span>
+              <span class="s-dot"></span>
+              <span class="s-dot"></span>
+            </span>
+            <span class="summary-total-price" id="summaryTotalPriceBottom">&#8377;199.00</span>
           </div>
         </div>
 
@@ -223,11 +228,11 @@
           <div class="checkout-payment-logos purchase-logos-row">
             <div class="cpay-icon bhim-upi-c">
               <span class="bhim-it">BHIM</span>
-              <span style="font-size:5px;"><span style="color:#ff7b00">▶</span><span style="color:#00a859">▶</span></span>
+              <span style="font-size:5px;"><span style="color:#ff7b00">Ã¢â€“Â¶</span><span style="color:#00a859">Ã¢â€“Â¶</span></span>
               <span class="bhim-it">UPI</span>
             </div>
             <div class="cpay-icon phonepe-c">
-              <div class="pe-c">पे</div>
+              <div class="pe-c">Ã Â¤ÂªÃ Â¥â€¡</div>
             </div>
             <div class="cpay-icon gpay-c">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -254,8 +259,8 @@
               </svg>
             </div>
           </div>
-          <p class="purchase-instruction">Pay by scanning the QR code with your banking app.</p>
-          <button class="complete-purchase-btn">Complete purchase</button>
+          <p class="purchase-instruction">Pay by <span class="highlight-link">scanning</span> the QR code with your banking <span class="highlight-link">app</span>.</p>
+          <button class="complete-purchase-btn" id="completePurchaseBtn">Complete purchase</button>
         </div>
 
         <hr class="checkout-footer-divider">
@@ -266,6 +271,46 @@
         <div class="checkout-footer-bottom">
           <a href="#" class="footer-link-small">Cookies Settings</a>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Payment Page -->
+  <div class="qr-page" id="qrPage">
+    <div class="qr-nav">
+      <button class="qr-back-btn" id="qrBackBtn">
+        <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8.5 1L1.5 8L8.5 15" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to payment details
+      </button>
+    </div>
+    <div class="qr-body">
+      <h1 class="qr-heading">To complete your purchase:</h1>
+      <div class="qr-steps">
+        <div class="qr-step">
+          <div class="qr-step-icon">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="1" y="6" width="28" height="20" rx="3" stroke="#888" stroke-width="1.8" fill="none"/><circle cx="15" cy="16" r="5.5" stroke="#888" stroke-width="1.8" fill="none"/><circle cx="15" cy="16" r="2.2" fill="#888"/><rect x="10" y="2" width="10" height="5" rx="1.5" stroke="#888" stroke-width="1.8" fill="none"/></svg>
+          </div>
+          <div class="qr-step-text">
+            <p class="qr-step-title">Scan the QR code below</p>
+            <p class="qr-step-desc">Scan the code using your preferred UPI app.</p>
+          </div>
+        </div>
+        <div class="qr-step">
+          <div class="qr-step-icon">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#888" stroke-width="1.8" fill="none"/><path d="M8.5 15l4.5 4.5 8.5-8.5" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="qr-step-text">
+            <p class="qr-step-title">Approve the payment</p>
+            <p class="qr-step-desc">Follow the instructions in your UPI app. Once done, this page will refresh and confirm if your purchase was successful.</p>
+          </div>
+        </div>
+      </div>
+      <div class="qr-code-wrap">
+        <img src="assets/qr.png" alt="UPI QR Code" class="qr-code-img">
+      </div>
+      <div class="qr-timer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#e17b25" stroke-width="2" fill="none"/><path d="M12 7v5l3 2" stroke="#e17b25" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="qr-timer-text"><span id="qrCountdown">04:59</span> left to complete purchase</span>
       </div>
     </div>
   </div>
@@ -658,7 +703,7 @@
         </div>
       </div>
 
-      <!-- ── Podcast Section ─────────────────────────────────────── -->
+      <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Podcast Section Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
       <div class="podcast-section" data-section="podcast">
         <h2 class="podcast-section-heading">Your Podcasts</h2>
 
@@ -685,7 +730,7 @@
               <span class="podcast-dot">&bull;</span>
               <span class="podcast-dur">29 min 13 sec</span>
               <span class="podcast-dot">&bull;</span>
-              Kya hota hai jab pyaar yaad se bhi zyada gehra ho? Heer aur Ranjan — do alag duniyaon ke log...
+              Kya hota hai jab pyaar yaad se bhi zyada gehra ho? Heer aur Ranjan Ã¢â‚¬â€ do alag duniyaon ke log...
             </p>
           </div>
 
@@ -710,7 +755,7 @@
               <span class="podcast-dot">&bull;</span>
               <span class="podcast-dur">38 min 29 sec</span>
               <span class="podcast-dot">&bull;</span>
-              "Zindagi kisi race ka naam nahi hai... zindagi mehsoos karne ka naam hai." — Osho
+              "Zindagi kisi race ka naam nahi hai... zindagi mehsoos karne ka naam hai." Ã¢â‚¬â€ Osho
             </p>
           </div>
 
@@ -759,7 +804,7 @@
               <span class="podcast-dot">&bull;</span>
               <span class="podcast-dur">52 min 17 sec</span>
               <span class="podcast-dot">&bull;</span>
-              The untold stories behind the songs that topped every chart — featuring artists who changed music...
+              The untold stories behind the songs that topped every chart Ã¢â‚¬â€ featuring artists who changed music...
             </p>
           </div>
 
@@ -767,7 +812,7 @@
       </div>
     </div>
 
-    <!-- ── Liked Songs Playlist View ─────────────────────────────────────── -->
+    <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Liked Songs Playlist View Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
     <div class="right-playlist-view section-hidden" id="liked-playlist-view">
       <div class="playlist-header">
         <div class="playlist-header-img">
@@ -851,9 +896,7 @@
         </div>
       </div>
     </div>
-    <!-- ──────────────────────────────────────────────────────── -->
-
-    <!-- ── Premium View ────────────────────────────────────────── -->
+   
     <div class="premium-view section-hidden" id="premium-view">
       <div class="premium-top">
         <h1>You're not on Premium anymore</h1>
@@ -872,13 +915,13 @@
           <div class="payment-icon bhim">
             <div class="bhim-logo">
               <span class="bhim-text">BHIM</span>
-              <span class="bhim-arrows"><span style="color: #ff7b00;">▶</span><span
-                  style="color: #00a859;">▶</span></span>
+              <span class="bhim-arrows"><span style="color: #ff7b00;"></span><span
+                  style="color: #00a859;">Ã¢â€“Â¶</span></span>
               <span class="upi-text">UPI</span>
             </div>
           </div>
           <div class="payment-icon phonepe">
-            <div class="pe-logo">पे</div>
+            <div class="pe-logo"></div>
           </div>
           <div class="payment-icon googlepay">
             <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
@@ -941,7 +984,7 @@
             <div class="plan-header">
               <div class="plan-logo"><i class="fa-brands fa-spotify"></i> Premium</div>
               <h3 class="plan-title">Lite</h3>
-              <p class="plan-price">₹139 / month</p>
+              <p class="plan-price">&#8377;139 / month</p>
             </div>
             <hr class="plan-divider">
             <ul class="plan-features">
@@ -951,7 +994,8 @@
             </ul>
             <div class="plan-footer">
               <button class="plan-btn">Get Premium Lite</button>
-              <a href="#" class="plan-terms">Terms apply.</a>
+              <p class="plan-terms-extended">For individual use on 1 Lite account. Availability and listening features
+                may vary by device and payment method. <a href="#">Terms apply.</a></p>
             </div>
           </div>
 
@@ -960,7 +1004,7 @@
             <div class="plan-header">
               <div class="plan-logo"><i class="fa-brands fa-spotify"></i> Premium</div>
               <h3 class="plan-title">Standard</h3>
-              <p class="plan-price">₹199 / month</p>
+              <p class="plan-price">&#8377;199 / month</p>
             </div>
             <hr class="plan-divider">
             <ul class="plan-features">
@@ -972,7 +1016,8 @@
             </ul>
             <div class="plan-footer">
               <button class="plan-btn">Get Premium Standard</button>
-              <a href="#" class="plan-terms">Terms apply.</a>
+              <p class="plan-terms-extended">For individual use on 1 Standard account. One-time payment availability may
+                vary by payment provider and region. <a href="#">Terms apply.</a></p>
             </div>
           </div>
 
@@ -981,7 +1026,7 @@
             <div class="plan-header">
               <div class="plan-logo"><i class="fa-brands fa-spotify"></i> Premium</div>
               <h3 class="plan-title">Platinum</h3>
-              <p class="plan-price">₹299 / month</p>
+              <p class="plan-price">&#8377;299 / month</p>
             </div>
             <hr class="plan-divider">
             <ul class="plan-features">
@@ -1007,7 +1052,7 @@
             <div class="plan-header">
               <div class="plan-logo"><i class="fa-brands fa-spotify"></i> Premium</div>
               <h3 class="plan-title">Student</h3>
-              <p class="plan-price">₹99 / month</p>
+              <p class="plan-price">&#8377;99 / month</p>
             </div>
             <hr class="plan-divider">
             <ul class="plan-features">
@@ -1026,7 +1071,7 @@
 
       </div>
     </div>
-    <!-- ──────────────────────────────────────────────────────── -->
+    <!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
 
   </div>
 
@@ -1077,63 +1122,6 @@
 
   <script src="script.js"></script>
 
-  <script>
-    // Plan data
-    var planData = {
-      'lite': { name: 'Premium Lite', sub: '1 Lite account', price: '₹139.00' },
-      'standard': { name: 'Premium Standard', sub: '1 Standard account', price: '₹199.00' },
-      'platinum': { name: 'Premium Platinum', sub: 'Up to 3 Platinum accounts', price: '₹299.00' },
-      'student': { name: 'Premium Student', sub: '1 verified Standard account', price: '₹99.00' }
-    };
-
-    document.querySelectorAll('.plan-btn').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        // Determine plan key from button text
-        var text = btn.textContent.toLowerCase();
-        var key = 'standard';
-        if (text.includes('lite')) key = 'lite';
-        if (text.includes('platinum')) key = 'platinum';
-        if (text.includes('student')) key = 'student';
-
-        var overlay = document.getElementById('redirectOverlay');
-        overlay.classList.add('active');
-
-        setTimeout(function () {
-          // Hide overlay and show checkout page
-          overlay.classList.remove('active');
-          var data = planData[key];
-          document.getElementById('checkoutPlanName').textContent = data.name;
-          document.getElementById('checkoutPlanSub').textContent = data.sub;
-          document.getElementById('checkoutPlanPrice').textContent = data.price;
-          
-          // Update summary section at the bottom
-          document.getElementById('summaryPlanNameBottom').textContent = data.name;
-          document.getElementById('summaryPlanPriceBottom').textContent = data.price + '/month';
-          document.getElementById('summaryTotalPriceBottom').textContent = data.price;
-
-          document.getElementById('checkoutPage').classList.add('active');
-        }, 2500);
-      });
-    });
-
-    // Change plan → go back
-    document.getElementById('checkoutChangePlan').addEventListener('click', function (e) {
-      e.preventDefault();
-      document.getElementById('checkoutPage').classList.remove('active');
-    });
-
-    // View all plans scroll functionality
-    const viewAllPlansBtn = document.querySelector('.btn-all-plans');
-    const premiumBottom = document.querySelector('.premium-bottom');
-    if (viewAllPlansBtn && premiumBottom) {
-      viewAllPlansBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        premiumBottom.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-  </script>
 
 </body>
 

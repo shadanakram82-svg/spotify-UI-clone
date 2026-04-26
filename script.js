@@ -778,3 +778,116 @@ if (mainAudio && masterPlayBtn) {
     addressBox.classList.remove('editing');
   });
 })();
+
+// ── Plan / Checkout / QR Payment Logic ──────────────────────────────────────
+(function () {
+  // Plan data
+  var planData = {
+    'lite':     { name: 'Premium Lite',     sub: '1 Lite account',               price: '&#8377;139.00' },
+    'standard': { name: 'Premium Standard', sub: '1 Standard account',           price: '&#8377;199.00' },
+    'platinum': { name: 'Premium Platinum', sub: 'Up to 3 Platinum accounts',    price: '&#8377;299.00' },
+    'student':  { name: 'Premium Student',  sub: '1 verified Standard account',  price: '&#8377;99.00'  }
+  };
+
+  // Plan buttons -> redirect overlay -> checkout page
+  document.querySelectorAll('.plan-btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      var text = btn.textContent.toLowerCase();
+      var key = 'standard';
+      if (text.includes('lite'))     key = 'lite';
+      if (text.includes('platinum')) key = 'platinum';
+      if (text.includes('student'))  key = 'student';
+
+      var overlay = document.getElementById('redirectOverlay');
+      if (overlay) overlay.classList.add('active');
+
+      setTimeout(function () {
+        if (overlay) overlay.classList.remove('active');
+        var data = planData[key];
+        document.getElementById('checkoutPlanName').textContent  = data.name;
+        document.getElementById('checkoutPlanSub').textContent   = data.sub;
+        document.getElementById('checkoutPlanPrice').textContent = data.price;
+
+        // Update summary section
+        document.getElementById('summaryPlanNameBottom').textContent  = data.name;
+        document.getElementById('summaryPlanPriceBottom').textContent = data.price + '/month';
+        document.getElementById('summaryTotalPriceBottom').textContent = data.price;
+
+        document.getElementById('checkoutPage').classList.add('active');
+      }, 2500);
+    });
+  });
+
+  // Change plan -> go back
+  var changePlanBtn = document.getElementById('checkoutChangePlan');
+  if (changePlanBtn) {
+    changePlanBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('checkoutPage').classList.remove('active');
+    });
+  }
+
+  // View all plans scroll
+  var viewAllPlansBtn = document.querySelector('.btn-all-plans');
+  var premiumBottom   = document.querySelector('.premium-bottom');
+  if (viewAllPlansBtn && premiumBottom) {
+    viewAllPlansBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      premiumBottom.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  // QR Payment Page logic
+  var qrTimerInterval = null;
+
+  function startQrCountdown(seconds) {
+    clearInterval(qrTimerInterval);
+    var remaining   = seconds;
+    var countdownEl = document.getElementById('qrCountdown');
+
+    function tick() {
+      var mins = Math.floor(remaining / 60);
+      var secs = remaining % 60;
+      countdownEl.textContent =
+        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+      if (remaining <= 0) { clearInterval(qrTimerInterval); return; }
+      remaining--;
+    }
+
+    tick();
+    qrTimerInterval = setInterval(tick, 1000);
+  }
+
+  var completePurchaseBtn = document.getElementById('completePurchaseBtn');
+  if (completePurchaseBtn) {
+    completePurchaseBtn.addEventListener('click', function () {
+      var summarySection = document.querySelector('.checkout-summary-section');
+      var btn = document.getElementById('completePurchaseBtn');
+
+      // Enter loading state
+      if (summarySection) summarySection.classList.add('purchase-loading');
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      // After 2.2 s show QR page and reset loading state
+      setTimeout(function () {
+        if (summarySection) summarySection.classList.remove('purchase-loading');
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        document.getElementById('qrPage').classList.add('active');
+        startQrCountdown(299);
+      }, 2200);
+    });
+  }
+
+  var qrBackBtn = document.getElementById('qrBackBtn');
+  if (qrBackBtn) {
+    qrBackBtn.addEventListener('click', function () {
+      document.getElementById('qrPage').classList.remove('active');
+      clearInterval(qrTimerInterval);
+      document.getElementById('qrCountdown').textContent = '04:59';
+    });
+  }
+})();
