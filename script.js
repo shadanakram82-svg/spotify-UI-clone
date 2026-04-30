@@ -830,12 +830,12 @@ if (mainAudio && masterPlayBtn) {
   }
 
   // View all plans scroll
-  var viewAllPlansBtn = document.querySelector('.btn-all-plans');
-  var premiumBottom   = document.querySelector('.premium-bottom');
-  if (viewAllPlansBtn && premiumBottom) {
+  var viewAllPlansBtn  = document.querySelector('.btn-all-plans');
+  var premiumPlansContainer = document.querySelector('.premium-plans-container');
+  if (viewAllPlansBtn && premiumPlansContainer) {
     viewAllPlansBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      premiumBottom.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      premiumPlansContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 

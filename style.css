@@ -106,32 +106,40 @@
   /* border: 1px solid white; */
 }
 
+/* ── NAVBAR LAYOUT ── */
 .nav-cont {
   display: flex;
   flex-direction: row;
-  /* border: 2px solid white ; */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1.2rem 0.55rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
 
+/* Left: Spotify logo */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .nav-logo {
-  margin-left: 1.6rem;
-  margin-top: 0.62rem;
-  /* margin: 1.2rem; */
   height: 2rem;
   width: 2rem;
-  /* border: 1px solid white; */
+  margin: 0;
 }
 
 .nav-home {
-  margin-bottom: 0.23rem;
-  margin-top: 1.1rem;
-  margin-left: 0.3rem;
-  background-color: #242121;
-  height: 3.2rem;
-  width: 3.3rem;
-  /* border: 3px solid white ; */
+  margin: 0;
+  background-color: #3e3e3e;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
-  transition: transform 0s ease;
+  padding: 0.46rem;
+  box-sizing: border-box;
+  object-fit: contain;
+  transition: background-color 0.15s ease;
 }
 
 .nav-home:hover {
@@ -139,25 +147,20 @@
 }
 
 .nav-left {
-  gap: 440px;
-  width: 1200px;
   display: flex;
   align-items: center;
-  /* border: 1px solid blue; */
-  /* justify-content: space-around; */
 }
 
 .input-form {
   position: relative;
-  height: 3.2rem;
-  width: 470px;
+  height: 3rem;
+  width: 480px;
   background-color: #2a2a2a;
-  margin-bottom: 0.6rem;
-  margin-top: 1.15rem;
+  margin: 0.6rem 0 0;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: visible;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .form-item {
@@ -168,26 +171,52 @@
 }
 
 .form-item span {
-  margin-top: 0.5rem;
-  margin-left: 9.6rem;
-  color: white;
-  font-size: 1.6rem;
+  margin: 0 0.4rem 0 auto;
+  color: #5a5a5a;
+  font-size: 1.1rem;
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
 }
 
 .browse-icon {
-  height: 1.7rem;
-  width: 2rem;
-  margin-top: 0.68rem;
-  margin-left: 0.68rem;
-  background-color: #242121;
-  border: 1px solid #242121;
-  border-radius: 100%;
-  transition: transform 0s ease;
-
+  height: 1.6rem;
+  width: 1.6rem;
+  margin: 0 0.6rem 0 0.4rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+  opacity: 0.75;
 }
 
 .browse-icon:hover {
-  transform: scale(1.1);
+  opacity: 1;
+}
+/* Home button inside the search pill */
+.nav-home-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-home-btn .nav-home {
+  margin: 0 0.3rem 0 0.4rem;
+  height: 2.4rem;
+  width: 2.4rem;
+  background-color: #3d3d3d;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.nav-home-btn .nav-home:hover {
+  background-color: #4a4a4a;
 }
 
 .search-icon {
@@ -202,8 +231,8 @@
   /* padding: 1rem; */
   /* margin: 0.5rem; */
   margin-bottom: 0;
-  background-color: #2a2a2a;
-  border: 1px solid #2a2a2a;
+  background-color: transparent;
+  border: none;
   color: #ffffff;
 }
 
@@ -226,9 +255,12 @@
 }
 
 .nav-center {
+  flex: 1;
   display: flex;
-  /* border: 2px solid white; */
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1rem 0 4rem;
 }
 
 .top-search-panel {
@@ -249,7 +281,6 @@
   transform: translateY(-6px);
   transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
 }
-
 .top-search-form.is-open .top-search-panel {
   opacity: 1;
   visibility: visible;
@@ -264,11 +295,14 @@
 
 .top-search-form .form-item {
   height: 100%;
-  padding: 0 0.9rem;
+  padding: 0 0.5rem 0 0;
+  display: flex;
+  align-items: center;
 }
 
 .top-search-form .search-icon {
-  margin: 0 0.8rem 0 0;
+  margin: 0 0.6rem 0 0.4rem;
+  flex-shrink: 0;
 }
 
 .top-search-form .news-email {
@@ -277,15 +311,16 @@
   padding: 0.85rem 0;
 }
 
-.top-search-form .form-item span {
-  margin: 0 0 0 auto;
-  color: #7b7b7b;
-  font-size: 1.3rem;
+.top-search-form .form-item .nav-divider {
+  margin: 0 0.4rem 0 auto;
+  color: #5a5a5a;
+  font-size: 1.1rem;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .top-search-form .browse-icon {
-  margin: 0 0 0 0.8rem;
+  margin: 0 0.5rem 0 0.3rem;
 }
 
 .top-search-heading {
@@ -3283,7 +3318,7 @@ body {
 .plan-card {
   background-color: #242424;
   border-radius: 8px;
-  padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+  padding: 0.9rem 1.2rem 1rem 1.2rem;
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -3391,12 +3426,13 @@ body {
 }
 
 .plan-features li::before {
-  content: 'â€¢';
+  content: '✓';
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 1.2rem;
-  line-height: 1.1;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #1ed760;
 }
 
 .plan-footer {
@@ -3450,12 +3486,13 @@ body {
 
 .plan-terms,
 .plan-terms-extended {
-  margin-top: 0.8rem;
-  font-size: 9px;
+  margin-top: 0.5rem;
+  font-size: 11px;
   color: #6a6a6a;
   line-height: 1.4;
   text-align: center;
   font-weight: 400;
+  /* text-decoration: underline; */
 }
 
 .plan-terms {
@@ -3467,10 +3504,20 @@ body {
   display: block;
 }
 
+/* Override .premium-bottom p which has higher specificity */
+.premium-bottom .plan-terms-extended {
+  font-size: 11px;
+   color: #888585;
+  margin-top: 0.5rem;
+  font-weight: 400;
+  /* text-decoration: underline; */
+  line-height: 1.4;
+}
+
 .plan-terms-extended a {
-  color: #6a6a6a;
+  color: #888585;
   text-decoration: underline;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 /* â”€â”€ Redirect Overlay â”€â”€ */
@@ -3745,7 +3792,7 @@ body {
 }
 
 .checkout-billing-info li::before {
-  content: 'â€¢';
+  content: '•';
   position: absolute;
   left: 0;
   color: #3d8c5e;
@@ -4209,7 +4256,7 @@ body {
 }
 
 .checkout-billing-info li::before {
-  content: 'â€¢';
+  content: '•';
   position: absolute;
   left: 0;
   color: #1a7a4a;

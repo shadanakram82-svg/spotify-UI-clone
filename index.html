@@ -317,82 +317,46 @@
 
   <div class="navbar">
     <div class="nav-cont">
-      <div class="nav-left">
+
+      <div class="nav-brand">
         <img src="assets/logo.png" class="nav-logo">
-
-        <div class="nav-center">
-          <a href="#" class="nav-home-link" aria-label="Home"><img src="assets/new home.png" class="nav-home"></a>
-          <!-- <a href="#"><img src="assets/images (1) (1) (1).png" class="nav-search"></a> -->
-
-          <form class="input-form top-search-form" role="search">
-            <div class="form-item">
-              <img src="assets/search-bar.png" class="search-icon">
-
-              <input class="news-email top-search-input" placeholder="What do you want to play?"
-                aria-label="Search music" autocomplete="off" />
-              <!-- <button class="news-send-button">send</button> -->
-
-              <span>|</span>
-              <img src="assets/browse-icon.png" class="browse-icon">
-            </div>
-            <div class="top-search-panel" aria-hidden="true">
-              <p class="top-search-heading">Recent searches</p>
-              <div class="top-search-results">
-                <button type="button" class="top-search-item" data-value="Jee Nai Lagda">
-                  <img src="assets/card1img.jpeg" alt="Jee Nai Lagda">
-                  <span class="top-search-copy">
-                    <strong>Jee Nai Lagda</strong>
-                    <small>Song &bull; Jasmine Sandlas, Jaani, Bunny</small>
-                  </span>
-                </button>
-                <button type="button" class="top-search-item" data-value="Jee Ni Lagda">
-                  <img
-                    src="assets/Akhiyaan-Gulaab-From-Teri-Baaton-Mein-Aisa-Uljha-Jiya-Hindi-2024-20240119131017-500x500.jpg"
-                    alt="Jee Ni Lagda">
-                  <span class="top-search-copy">
-                    <strong>Jee Ni Lagda</strong>
-                    <small>Song &bull; Karan Aujla, Ikky</small>
-                  </span>
-                </button>
-                <button type="button" class="top-search-item" data-value="Tere Vaaste Punjabi Version">
-                  <img src="assets/card2img.jpeg" alt="Tere Vaaste Punjabi Version">
-                  <span class="top-search-copy">
-                    <strong>Tere Vaaste Punjabi Version - Noor Chahal</strong>
-                    <small>Song &bull; Noor Chahal</small>
-                  </span>
-                </button>
-                <button type="button" class="top-search-item" data-value="Tere Vaaste">
-                  <img src="assets/card3img.jpeg" alt="Tere Vaaste">
-                  <span class="top-search-copy">
-                    <strong>Tere Vaaste (From "Zara Hatke Zara Bachke")</strong>
-                    <small>Song &bull; Varun Jain, Sachin-Jigar, Shadab Faridi</small>
-                  </span>
-                </button>
-                <button type="button" class="top-search-item" data-value="Ishq Murshid">
-                  <img src="assets/en.jpg" alt="Ishq Murshid">
-                  <span class="top-search-copy">
-                    <strong>Ishq Murshid (ALL SONGS)</strong>
-                    <small>Playlist &bull; Annewsha Das</small>
-                  </span>
-                </button>
-              </div>
-              <p class="top-search-empty" hidden>No recent searches found.</p>
-            </div>
-          </form>
-        </div>
       </div>
+      <div class="nav-center">
+        <a href="#" class="nav-home-link nav-home-btn" aria-label="Home">
+          <img src="assets/new home.png" class="nav-home">
+        </a>
+        <form class="input-form top-search-form" role="search">
+          <div class="form-item">
 
+
+
+            <img src="assets/search-bar.png" class="search-icon">
+            <input class="news-email top-search-input" placeholder="What do you want to play?" aria-label="Search music" autocomplete="off" />
+            <span class="nav-divider">|</span>
+            <img src="assets/browse-icon.png" class="browse-icon">
+          </div>
+          <div class="top-search-panel" aria-hidden="true">
+            <p class="top-search-heading">Recent searches</p>
+            <div class="top-search-results">
+              <button type="button" class="top-search-item" data-value="Jee Nai Lagda"><img src="assets/card1img.jpeg" alt="Jee Nai Lagda"><span class="top-search-copy"><strong>Jee Nai Lagda</strong><small>Song &bull; Jasmine Sandlas, Jaani, Bunny</small></span></button>
+              <button type="button" class="top-search-item" data-value="Jee Ni Lagda"><img src="assets/Akhiyaan-Gulaab-From-Teri-Baaton-Mein-Aisa-Uljha-Jiya-Hindi-2024-20240119131017-500x500.jpg" alt="Jee Ni Lagda"><span class="top-search-copy"><strong>Jee Ni Lagda</strong><small>Song &bull; Karan Aujla, Ikky</small></span></button>
+              <button type="button" class="top-search-item" data-value="Tere Vaaste Punjabi Version"><img src="assets/card2img.jpeg" alt="Tere Vaaste Punjabi Version"><span class="top-search-copy"><strong>Tere Vaaste Punjabi Version - Noor Chahal</strong><small>Song &bull; Noor Chahal</small></span></button>
+              <button type="button" class="top-search-item" data-value="Tere Vaaste"><img src="assets/card3img.jpeg" alt="Tere Vaaste"><span class="top-search-copy"><strong>Tere Vaaste (From "Zara Hatke Zara Bachke")</strong><small>Song &bull; Varun Jain, Sachin-Jigar</small></span></button>
+              <button type="button" class="top-search-item" data-value="Ishq Murshid"><img src="assets/en.jpg" alt="Ishq Murshid"><span class="top-search-copy"><strong>Ishq Murshid (ALL SONGS)</strong><small>Playlist &bull; Annewsha Das</small></span></button>
+            </div>
+            <p class="top-search-empty" hidden>No recent searches found.</p>
+          </div>
+        </form>
+      </div>
 
       <div class="nav-right">
         <a href="#" class="nav-explore">Explore Premium</a>
-        <a href="#" class="nav-icon-link nav-notification-link" aria-label="Notifications"><img
-            src="assets/notification.png" class="nav-xtra-item"></a>
-        <a href="#" class="nav-icon-link nav-friends-link" aria-label="Friend activity"><img
-            src="assets/friend-activity.png" class="nav-xtra-item"></a>
-        <a href="#" class="nav-icon-link nav-profile-link" aria-label="Profile"><img src="assets/profile-logo.png"
-            class="nav-profile"></a>
-
+        <a href="#" class="nav-icon-link nav-notification-link" aria-label="Notifications"><img src="assets/notification.png" class="nav-xtra-item"></a>
+        <a href="#" class="nav-icon-link nav-friends-link" aria-label="Friend activity"><img src="assets/friend-activity.png" class="nav-xtra-item"></a>
+        <a href="#" class="nav-icon-link nav-profile-link" aria-label="Profile"><img src="assets/profile-logo.png" class="nav-profile"></a>
       </div>
+
+    </div>
     </div>
 
     <div class="hamburger">
@@ -988,14 +952,13 @@
             </div>
             <hr class="plan-divider">
             <ul class="plan-features">
-              <li>1 Lite account</li>
+              <li> 1 Lite account</li>
               <li>High audio quality (up to ~160kbps)</li>
               <li>Cancel anytime</li>
             </ul>
             <div class="plan-footer">
               <button class="plan-btn">Get Premium Lite</button>
-              <p class="plan-terms-extended">For individual use on 1 Lite account. Availability and listening features
-                may vary by device and payment method. <a href="#">Terms apply.</a></p>
+              <p class="plan-terms-extended"> <a href="#">Terms apply.</a></p>
             </div>
           </div>
 
@@ -1016,8 +979,7 @@
             </ul>
             <div class="plan-footer">
               <button class="plan-btn">Get Premium Standard</button>
-              <p class="plan-terms-extended">For individual use on 1 Standard account. One-time payment availability may
-                vary by payment provider and region. <a href="#">Terms apply.</a></p>
+              <p class="plan-terms-extended"> <a href="#">Terms apply.</a></p>
             </div>
           </div>
 
@@ -1071,7 +1033,7 @@
 
       </div>
     </div>
-    <!-- Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
+   
 
   </div>
 
