@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+  <title>Spotify - Checkout</title>
+  <link rel="stylesheet" href="checkout.css">
+</head>
+
+<body>
+
+  <!-- Redirect Overlay (visible on page load, fades after 2.5s) -->
+  <div class="redirect-overlay active" id="redirectOverlay">
+    <div class="redirect-logo">
+      <img src="assets/logo.png" alt="Spotify" class="redirect-spotify-logo">
+      <span>Spotify</span>
+    </div>
+    <div class="redirect-content">
+      <p class="redirect-text">You are being redirected to</p>
+      <a href="https://www.spotify.com" class="redirect-link">https://www.spotify.com</a>
+      <div class="redirect-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Page -->
+  <div class="checkout-page" id="checkoutPage">
+    <div class="checkout-nav">
+      <a href="index.html" class="checkout-nav-left" style="text-decoration: none; color: inherit;">
+        <img src="assets/logo.png" alt="Spotify" class="checkout-nav-logo">
+        <span class="checkout-nav-brand">Spotify</span>
+      </a>
+      <div class="checkout-nav-right">
+        <div class="checkout-avatar">S</div>
+      </div>
+    </div>
+
+    <div class="checkout-body">
+      <div class="checkout-header">
+        <h1 class="checkout-title">Checkout</h1>
+        <a href="#" class="checkout-change-plan" id="checkoutChangePlan">Change plan</a>
+      </div>
+
+      <hr class="checkout-divider">
+
+      <div class="checkout-plan-summary">
+        <div class="checkout-plan-left">
+          <div class="checkout-spotify-icon">
+            <i class="fa-brands fa-spotify"></i>
+          </div>
+          <div class="checkout-plan-info">
+            <p class="checkout-plan-name" id="checkoutPlanName">Premium Standard</p>
+            <p class="checkout-plan-sub" id="checkoutPlanSub">1 Standard account</p>
+          </div>
+        </div>
+        <div class="checkout-plan-right">
+          <span class="checkout-plan-price" id="checkoutPlanPrice">&#8377;199.00</span>
+          <span class="checkout-plan-period">/month</span>
+        </div>
+      </div>
+
+      <ul class="checkout-billing-info">
+        <li>Monthly billing starting today.</li>
+        <li>Cancel anytime online. <a href="#">Terms apply</a></li>
+      </ul>
+
+      <hr class="checkout-divider">
+
+      <div class="checkout-section">
+        <h2 class="checkout-section-title">Address</h2>
+        <p class="checkout-section-sub">Tax is calculated based on your address.</p>
+        <div class="checkout-address-box" id="addressBox">
+          <div class="address-display" id="addressDisplay">
+            <div>
+              <p class="address-city" id="addressCity">Gurugram</p>
+              <p class="address-state" id="addressState">Haryana</p>
+              <p class="address-country">IN</p>
+            </div>
+            <button class="address-edit-btn" id="addressEditBtn">Edit</button>
+          </div>
+          <div class="address-edit-form" id="addressEditForm" style="display:none;">
+            <div class="address-form-group">
+              <label for="stateSelect" class="address-form-label">State / Union Territory</label>
+              <select id="stateSelect" class="address-form-select">
+                <option value="">— Select State —</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana" selected>Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+              </select>
+            </div>
+            <div class="address-form-group">
+              <label for="citySelect" class="address-form-label">City</label>
+              <select id="citySelect" class="address-form-select">
+                <option value="">— Select City —</option>
+              </select>
+            </div>
+            <div class="address-form-actions">
+              <button class="address-save-btn" id="addressSaveBtn">Save</button>
+              <button class="address-cancel-btn" id="addressCancelBtn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-section">
+        <h2 class="checkout-section-title">Payment method</h2>
+        <div class="checkout-payment-box">
+          <label class="payment-option">
+            <input type="radio" name="payment" checked>
+            <span>UPI (QR code)</span>
+          </label>
+          <div class="checkout-payment-logos">
+            <div class="cpay-icon bhim-upi-c">
+              <span class="bhim-it">BHIM</span>
+              <span style="font-size:5px;"><span style="color:#ff7b00">&#9654;</span><span
+                  style="color:#00a859">&#9654;</span></span>
+              <span class="bhim-it">UPI</span>
+            </div>
+            <div class="cpay-icon phonepe-c">
+              <div class="pe-c">&#2346;&#2375;</div>
+            </div>
+            <div class="cpay-icon gpay-c">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4" />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853" />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05" />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335" />
+              </svg>
+            </div>
+            <div class="cpay-icon paytm-c">
+              <span style="color:#002e6e;font-weight:800;font-size:8px;">Pay</span><span
+                style="color:#00b9f1;font-weight:800;font-size:8px;">tm</span>
+            </div>
+            <div class="cpay-icon amzpay-c">
+              <span style="font-size:9px;font-weight:bold;color:#000;">pay</span>
+              <svg viewBox="0 0 50 12" width="28" height="7">
+                <path d="M0,0 Q25,12 50,0" fill="transparent" stroke="#ff9900" stroke-width="4" />
+                <polygon points="44,-2 50,0 44,8" fill="#ff9900" />
+              </svg>
+            </div>
+            <div class="cpay-icon upi-tri-c">
+              <svg viewBox="0 0 100 100" width="18" height="18">
+                <polygon points="10,90 50,10 70,50" fill="#ff7b00" />
+                <polygon points="40,90 80,10 100,50" fill="#00a859" />
+              </svg>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-section checkout-summary-section">
+        <h2 class="checkout-section-title">Summary</h2>
+        <div class="summary-items-box">
+          <p class="summary-items-title">Items</p>
+          <div class="summary-item-row">
+            <div class="summary-item-left">
+              <div class="summary-spotify-icon">
+                <i class="fa-brands fa-spotify"></i>
+              </div>
+              <span class="summary-plan-name" id="summaryPlanNameBottom">Premium Standard</span>
+            </div>
+            <div class="summary-item-right">
+              <span class="summary-plan-price" id="summaryPlanPriceBottom">&#8377;199.00/month</span>
+            </div>
+          </div>
+          <hr class="summary-divider">
+          <div class="summary-total-row" id="summaryTotalRow">
+            <span class="summary-total-label">Total now</span>
+            <span class="summary-loading-dots" id="summaryLoadingDots" aria-hidden="true">
+              <span class="s-dot"></span>
+              <span class="s-dot"></span>
+              <span class="s-dot"></span>
+            </span>
+            <span class="summary-total-price" id="summaryTotalPriceBottom">&#8377;199.00</span>
+          </div>
+        </div>
+
+        <p class="summary-terms-text">
+          You hereby authorize Spotify to automatically charge you every month until you cancel your subscription. You may cancel at any time, however you will not be entitled to a refund upon cancellation. Full terms and instructions on how to cancel are available <a href="#">here</a>. To learn more about how Spotify collects, uses, shares and protects your personal data, please see Spotify's <a href="#">Privacy Policy</a>.
+        </p>
+
+        <div class="checkout-purchase-box">
+          <div class="checkout-payment-logos purchase-logos-row">
+            <div class="cpay-icon bhim-upi-c">
+              <span class="bhim-it">BHIM</span>
+              <span style="font-size:5px;"><span style="color:#ff7b00">&#9654;</span><span style="color:#00a859">&#9654;</span></span>
+              <span class="bhim-it">UPI</span>
+            </div>
+            <div class="cpay-icon phonepe-c">
+              <div class="pe-c">&#2346;&#2375;</div>
+            </div>
+            <div class="cpay-icon gpay-c">
+              <svg viewBox="0 0 24 24" width="18" height="18">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+              </svg>
+            </div>
+            <div class="cpay-icon paytm-c">
+              <span style="color:#002e6e;font-weight:800;font-size:8px;">Pay</span><span style="color:#00b9f1;font-weight:800;font-size:8px;">tm</span>
+            </div>
+            <div class="cpay-icon amzpay-c">
+              <span style="font-size:9px;font-weight:bold;color:#000;">pay</span>
+              <svg viewBox="0 0 50 12" width="28" height="7">
+                <path d="M0,0 Q25,12 50,0" fill="transparent" stroke="#ff9900" stroke-width="4" />
+                <polygon points="44,-2 50,0 44,8" fill="#ff9900" />
+              </svg>
+            </div>
+            <div class="cpay-icon upi-tri-c">
+              <svg viewBox="0 0 100 100" width="18" height="18">
+                <polygon points="10,90 50,10 70,50" fill="#ff7b00" />
+                <polygon points="40,90 80,10 100,50" fill="#00a859" />
+              </svg>
+            </div>
+          </div>
+          <p class="purchase-instruction">Pay by <span class="highlight-link">scanning</span> the QR code with your banking <span class="highlight-link">app</span>.</p>
+          <button class="complete-purchase-btn" id="completePurchaseBtn">Complete purchase</button>
+        </div>
+
+        <hr class="checkout-footer-divider">
+        <div class="checkout-footer-links">
+          <span class="footer-country">India</span>
+          <a href="#" class="footer-link">Change country</a>
+        </div>
+        <div class="checkout-footer-bottom">
+          <a href="#" class="footer-link-small">Cookies Settings</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Payment Page -->
+  <div class="qr-page" id="qrPage">
+    <div class="qr-nav">
+      <button class="qr-back-btn" id="qrBackBtn">
+        <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8.5 1L1.5 8L8.5 15" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to payment details
+      </button>
+    </div>
+    <div class="qr-body">
+      <h1 class="qr-heading">To complete your purchase:</h1>
+      <div class="qr-steps">
+        <div class="qr-step">
+          <div class="qr-step-icon">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="1" y="6" width="28" height="20" rx="3" stroke="#888" stroke-width="1.8" fill="none"/><circle cx="15" cy="16" r="5.5" stroke="#888" stroke-width="1.8" fill="none"/><circle cx="15" cy="16" r="2.2" fill="#888"/><rect x="10" y="2" width="10" height="5" rx="1.5" stroke="#888" stroke-width="1.8" fill="none"/></svg>
+          </div>
+          <div class="qr-step-text">
+            <p class="qr-step-title">Scan the QR code below</p>
+            <p class="qr-step-desc">Scan the code using your preferred UPI app.</p>
+          </div>
+        </div>
+        <div class="qr-step">
+          <div class="qr-step-icon">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#888" stroke-width="1.8" fill="none"/><path d="M8.5 15l4.5 4.5 8.5-8.5" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="qr-step-text">
+            <p class="qr-step-title">Approve the payment</p>
+            <p class="qr-step-desc">Follow the instructions in your UPI app. Once done, this page will refresh and confirm if your purchase was successful.</p>
+          </div>
+        </div>
+      </div>
+      <div class="qr-code-wrap">
+        <img src="assets/qr.png" alt="UPI QR Code" class="qr-code-img">
+      </div>
+      <div class="qr-timer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#e17b25" stroke-width="2" fill="none"/><path d="M12 7v5l3 2" stroke="#e17b25" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="qr-timer-text"><span id="qrCountdown">04:59</span> left to complete purchase</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="checkout.js"></script>
+
+</body>
+
+</html>

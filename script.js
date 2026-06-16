@@ -463,6 +463,16 @@ likedNavTriggers.forEach(trigger => {
   trigger.addEventListener('click', navigateLikedSongs);
 });
 
+// Check URL parameter on page load to show Premium if coming back from checkout
+try {
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('view') === 'premium') {
+    navigatePremium();
+  }
+} catch (e) {
+  console.error("Url search params error", e);
+}
+
 // ── Audio Playback Logic ─────────────────
 const mainAudio = document.getElementById('main-audio-player');
 const masterPlayBtn = document.getElementById('master-play-btn');
@@ -664,230 +674,28 @@ if (mainAudio && masterPlayBtn) {
   }
 }
 
-// ── Address Edit (Checkout Page) ─────────────────────────────────────
+// ── Plan Selection → Checkout Navigation ──────────────────────────────────────
 (function () {
-  const addressBox = document.getElementById('addressBox');
-  const addressDisplay = document.getElementById('addressDisplay');
-  const addressEditForm = document.getElementById('addressEditForm');
-  const addressEditBtn = document.getElementById('addressEditBtn');
-  const addressSaveBtn = document.getElementById('addressSaveBtn');
-  const addressCancelBtn = document.getElementById('addressCancelBtn');
-  const stateSelect = document.getElementById('stateSelect');
-  const citySelect = document.getElementById('citySelect');
-  const addressCityEl = document.getElementById('addressCity');
-  const addressStateEl = document.getElementById('addressState');
-
-  if (!addressBox || !addressDisplay || !addressEditForm) return;
-
-  // City data for each state
-  const cityData = {
-    'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Nellore', 'Kurnool', 'Rajahmundry', 'Tirupati', 'Kakinada', 'Kadapa', 'Anantapur', 'Eluru', 'Ongole', 'Vizianagaram'],
-    'Arunachal Pradesh': ['Itanagar', 'Naharlagun', 'Pasighat', 'Tawang', 'Ziro', 'Bomdila', 'Along', 'Tezu'],
-    'Assam': ['Guwahati', 'Silchar', 'Dibrugarh', 'Jorhat', 'Nagaon', 'Tinsukia', 'Tezpur', 'Bongaigaon', 'Karimganj', 'Sivasagar'],
-    'Bihar': ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur', 'Purnia', 'Darbhanga', 'Bihar Sharif', 'Arrah', 'Begusarai', 'Katihar', 'Munger', 'Chapra', 'Sasaram'],
-    'Chhattisgarh': ['Raipur', 'Bhilai', 'Bilaspur', 'Korba', 'Durg', 'Rajnandgaon', 'Raigarh', 'Jagdalpur', 'Ambikapur'],
-    'Delhi': ['New Delhi', 'Dwarka', 'Rohini', 'Saket', 'Lajpat Nagar', 'Karol Bagh', 'Connaught Place', 'Janakpuri', 'Pitampura', 'Vasant Kunj', 'Shahdara', 'Narela'],
-    'Goa': ['Panaji', 'Margao', 'Vasco da Gama', 'Mapusa', 'Ponda', 'Bicholim', 'Quepem'],
-    'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Bhavnagar', 'Jamnagar', 'Junagadh', 'Gandhinagar', 'Anand', 'Morbi', 'Nadiad', 'Mehsana', 'Bharuch', 'Porbandar'],
-    'Haryana': ['Gurugram', 'Faridabad', 'Panipat', 'Ambala', 'Karnal', 'Hisar', 'Rohtak', 'Sonipat', 'Panchkula', 'Bhiwani', 'Sirsa', 'Bahadurgarh', 'Yamunanagar', 'Kurukshetra', 'Rewari', 'Palwal'],
-    'Himachal Pradesh': ['Shimla', 'Manali', 'Dharamshala', 'Solan', 'Mandi', 'Kullu', 'Bilaspur', 'Chamba', 'Hamirpur', 'Palampur'],
-    'Jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro', 'Hazaribagh', 'Deoghar', 'Giridih', 'Ramgarh', 'Dumka'],
-    'Karnataka': ['Bengaluru', 'Mysuru', 'Mangaluru', 'Hubballi', 'Belagavi', 'Kalaburagi', 'Davangere', 'Ballari', 'Vijayapura', 'Shivamogga', 'Tumakuru', 'Udupi', 'Hassan'],
-    'Kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur', 'Kollam', 'Palakkad', 'Alappuzha', 'Kannur', 'Kottayam', 'Malappuram', 'Kasaragod'],
-    'Madhya Pradesh': ['Bhopal', 'Indore', 'Gwalior', 'Jabalpur', 'Ujjain', 'Sagar', 'Dewas', 'Satna', 'Ratlam', 'Rewa', 'Singrauli', 'Burhanpur', 'Khandwa'],
-    'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Thane', 'Nashik', 'Aurangabad', 'Solapur', 'Kolhapur', 'Amravati', 'Navi Mumbai', 'Sangli', 'Latur', 'Akola', 'Jalgaon', 'Ahmednagar'],
-    'Manipur': ['Imphal', 'Thoubal', 'Bishnupur', 'Churachandpur', 'Ukhrul', 'Kakching'],
-    'Meghalaya': ['Shillong', 'Tura', 'Jowai', 'Nongstoin', 'Williamnagar', 'Baghmara'],
-    'Mizoram': ['Aizawl', 'Lunglei', 'Champhai', 'Serchhip', 'Kolasib', 'Lawngtlai'],
-    'Nagaland': ['Kohima', 'Dimapur', 'Mokokchung', 'Tuensang', 'Wokha', 'Zunheboto'],
-    'Odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela', 'Berhampur', 'Sambalpur', 'Puri', 'Balasore', 'Baripada', 'Bhadrak', 'Jharsuguda'],
-    'Punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda', 'Mohali', 'Pathankot', 'Hoshiarpur', 'Moga', 'Barnala', 'Phagwara', 'Muktsar', 'Kapurthala', 'Firozpur'],
-    'Rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Bikaner', 'Ajmer', 'Bhilwara', 'Alwar', 'Sikar', 'Pali', 'Sri Ganganagar', 'Bharatpur', 'Tonk', 'Kishangarh', 'Beawar'],
-    'Sikkim': ['Gangtok', 'Namchi', 'Gyalshing', 'Mangan', 'Rangpo', 'Singtam'],
-    'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli', 'Erode', 'Vellore', 'Thoothukudi', 'Thanjavur', 'Dindigul', 'Tiruppur', 'Kanchipuram', 'Nagercoil'],
-    'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Karimnagar', 'Khammam', 'Ramagundam', 'Mahbubnagar', 'Nalgonda', 'Adilabad', 'Siddipet', 'Suryapet'],
-    'Tripura': ['Agartala', 'Udaipur', 'Dharmanagar', 'Kailashahar', 'Belonia', 'Ambassa'],
-    'Uttar Pradesh': ['Lucknow', 'Noida', 'Kanpur', 'Ghaziabad', 'Agra', 'Varanasi', 'Meerut', 'Prayagraj', 'Bareilly', 'Aligarh', 'Moradabad', 'Gorakhpur', 'Saharanpur', 'Jhansi', 'Firozabad', 'Mathura', 'Ayodhya', 'Muzaffarnagar'],
-    'Uttarakhand': ['Dehradun', 'Haridwar', 'Rishikesh', 'Roorkee', 'Haldwani', 'Rudrapur', 'Kashipur', 'Nainital', 'Mussoorie', 'Pithoragarh'],
-    'West Bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Asansol', 'Siliguri', 'Bardhaman', 'Malda', 'Baharampur', 'Habra', 'Kharagpur', 'Shantiniketan', 'Haldia', 'Raiganj']
-  };
-
-  // Populate city dropdown based on selected state
-  const populateCities = (state) => {
-    citySelect.innerHTML = '<option value="">— Select City —</option>';
-    const cities = cityData[state];
-    if (cities) {
-      cities.forEach(city => {
-        const opt = document.createElement('option');
-        opt.value = city;
-        opt.textContent = city;
-        citySelect.appendChild(opt);
-      });
-    }
-  };
-
-  // When state changes, refresh city list
-  stateSelect.addEventListener('change', () => {
-    populateCities(stateSelect.value);
-  });
-
-  // Open edit form
-  addressEditBtn.addEventListener('click', () => {
-    addressDisplay.style.display = 'none';
-    addressEditForm.style.display = 'block';
-    addressBox.classList.add('editing');
-
-    // Pre-select current state & populate cities
-    const currentState = addressStateEl.textContent.trim();
-    stateSelect.value = currentState;
-    populateCities(currentState);
-
-    // Pre-select current city
-    const currentCity = addressCityEl.textContent.trim();
-    if (citySelect.querySelector(`option[value="${currentCity}"]`)) {
-      citySelect.value = currentCity;
-    }
-  });
-
-  // Save
-  addressSaveBtn.addEventListener('click', () => {
-    const newState = stateSelect.value;
-    const newCity = citySelect.value;
-
-    if (!newState) {
-      stateSelect.focus();
-      return;
-    }
-    if (!newCity) {
-      citySelect.focus();
-      return;
-    }
-
-    addressStateEl.textContent = newState;
-    addressCityEl.textContent = newCity;
-
-    addressEditForm.style.display = 'none';
-    addressDisplay.style.display = 'flex';
-    addressBox.classList.remove('editing');
-  });
-
-  // Cancel
-  addressCancelBtn.addEventListener('click', () => {
-    addressEditForm.style.display = 'none';
-    addressDisplay.style.display = 'flex';
-    addressBox.classList.remove('editing');
-  });
-})();
-
-// ── Plan / Checkout / QR Payment Logic ──────────────────────────────────────
-(function () {
-  // Plan data
-  var planData = {
-    'lite':     { name: 'Premium Lite',     sub: '1 Lite account',               price: '&#8377;139.00' },
-    'standard': { name: 'Premium Standard', sub: '1 Standard account',           price: '&#8377;199.00' },
-    'platinum': { name: 'Premium Platinum', sub: 'Up to 3 Platinum accounts',    price: '&#8377;299.00' },
-    'student':  { name: 'Premium Student',  sub: '1 verified Standard account',  price: '&#8377;99.00'  }
-  };
-
-  // Plan buttons -> redirect overlay -> checkout page
+  // Plan buttons redirect to checkout page
   document.querySelectorAll('.plan-btn').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-
       var text = btn.textContent.toLowerCase();
       var key = 'standard';
       if (text.includes('lite'))     key = 'lite';
       if (text.includes('platinum')) key = 'platinum';
       if (text.includes('student'))  key = 'student';
-
-      var overlay = document.getElementById('redirectOverlay');
-      if (overlay) overlay.classList.add('active');
-
-      setTimeout(function () {
-        if (overlay) overlay.classList.remove('active');
-        var data = planData[key];
-        document.getElementById('checkoutPlanName').textContent  = data.name;
-        document.getElementById('checkoutPlanSub').textContent   = data.sub;
-        document.getElementById('checkoutPlanPrice').textContent = data.price;
-
-        // Update summary section
-        document.getElementById('summaryPlanNameBottom').textContent  = data.name;
-        document.getElementById('summaryPlanPriceBottom').textContent = data.price + '/month';
-        document.getElementById('summaryTotalPriceBottom').textContent = data.price;
-
-        document.getElementById('checkoutPage').classList.add('active');
-      }, 2500);
+      window.location.href = 'checkout.html?plan=' + key;
     });
   });
 
-  // Change plan -> go back
-  var changePlanBtn = document.getElementById('checkoutChangePlan');
-  if (changePlanBtn) {
-    changePlanBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.getElementById('checkoutPage').classList.remove('active');
-    });
-  }
-
   // View all plans scroll
-  var viewAllPlansBtn  = document.querySelector('.btn-all-plans');
+  var viewAllPlansBtn = document.querySelector('.btn-all-plans');
   var premiumPlansContainer = document.querySelector('.premium-plans-container');
   if (viewAllPlansBtn && premiumPlansContainer) {
     viewAllPlansBtn.addEventListener('click', function (e) {
       e.preventDefault();
       premiumPlansContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
-
-  // QR Payment Page logic
-  var qrTimerInterval = null;
-
-  function startQrCountdown(seconds) {
-    clearInterval(qrTimerInterval);
-    var remaining   = seconds;
-    var countdownEl = document.getElementById('qrCountdown');
-
-    function tick() {
-      var mins = Math.floor(remaining / 60);
-      var secs = remaining % 60;
-      countdownEl.textContent =
-        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-      if (remaining <= 0) { clearInterval(qrTimerInterval); return; }
-      remaining--;
-    }
-
-    tick();
-    qrTimerInterval = setInterval(tick, 1000);
-  }
-
-  var completePurchaseBtn = document.getElementById('completePurchaseBtn');
-  if (completePurchaseBtn) {
-    completePurchaseBtn.addEventListener('click', function () {
-      var summarySection = document.querySelector('.checkout-summary-section');
-      var btn = document.getElementById('completePurchaseBtn');
-
-      // Enter loading state
-      if (summarySection) summarySection.classList.add('purchase-loading');
-      btn.classList.add('loading');
-      btn.disabled = true;
-
-      // After 2.2 s show QR page and reset loading state
-      setTimeout(function () {
-        if (summarySection) summarySection.classList.remove('purchase-loading');
-        btn.classList.remove('loading');
-        btn.disabled = false;
-        document.getElementById('qrPage').classList.add('active');
-        startQrCountdown(299);
-      }, 2200);
-    });
-  }
-
-  var qrBackBtn = document.getElementById('qrBackBtn');
-  if (qrBackBtn) {
-    qrBackBtn.addEventListener('click', function () {
-      document.getElementById('qrPage').classList.remove('active');
-      clearInterval(qrTimerInterval);
-      document.getElementById('qrCountdown').textContent = '04:59';
     });
   }
 })();
